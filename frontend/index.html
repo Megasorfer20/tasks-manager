@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="./styles/index.css">
+  </head>
+  <body>
+    <center>
+      <h1>Task Manager</h1>
+      <div class="export-upload-section">
+        <button class="export-data">Export Data</button>
+        <button class="export-data" id="add-task">Add Task</button>
+      </div>
+      <div class="filter-buttons-container">
+        <button class="filter-buttons active">All Tasks</button>
+        <button class="filter-buttons">Undone Tasks</button>
+        <button class="filter-buttons">Done Tasks</button>
+      </div>
+      <div class="tasks-container">
+        <!-- Example task cards -->
+      </div>
+    </center>
+
+    <!-- Modal -->
+    <div class="modal" id="task-modal">
+      <div class="modal-content">
+        <h2>Add New Task</h2>
+        <form id="task-form">
+          <input type="text" placeholder="Task Title" id="task-title" required />
+          <textarea placeholder="Task Description" id="task-desc" required></textarea>
+          <button type="submit">Add Task</button>
+          <button type="button" class="close" id="close-modal">Cancel</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const addTaskButton = document.getElementById("add-task");
+      const modal = document.getElementById("task-modal");
+      const closeModal = document.getElementById("close-modal");
+      const taskForm = document.getElementById("task-form");
+      const tasksContainer = document.querySelector(".tasks-container");
+
+      // Open Modal
+      addTaskButton.addEventListener("click", () => {
+        modal.classList.add("active");
+      });
+
+      // Close Modal
+      closeModal.addEventListener("click", () => {
+        modal.classList.remove("active");
+      });
+
+      // Add Task
+      taskForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const title = document.getElementById("task-title").value;
+        const description = document.getElementById("task-desc").value;
+
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="status">
+            <strong>Status: </strong>
+            <p>Undone</p>
+          </div>
+          <div class="content-data">
+            <h3>${title}</h3>
+            <p>${description}</p>
+          </div>
+          <div class="buttons-task">
+            <button>Delete</button>
+            <button>Mark as Done</button>
+          </div>
+        `;
+
+        tasksContainer.appendChild(card);
+        modal.classList.remove("active");
+        taskForm.reset();
+      });
+    </script>
+  </body>
+</html>

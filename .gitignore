@@ -1,0 +1,10 @@
+**/__pycache__/**
+**/*.db
+**/*.kv
+**/*.env
+**/task-manager-env
+.buildozer/
+bin/
+data.json
+.scannerwork
+.scannerwork/**
