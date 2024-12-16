@@ -106,6 +106,9 @@ h1 {
 
 .content-data {
   text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .content-data h3 {

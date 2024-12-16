@@ -8,3 +8,7 @@ bin/
 data.json
 .scannerwork
 .scannerwork/**
+**/*task.json/**
+**/*task.json
+*task.json
+**/task.json
