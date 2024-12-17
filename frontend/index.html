@@ -4,36 +4,48 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task Manager</title>
-    <link rel="stylesheet" href="./styles/index.css">
+    <link rel="icon" href="./media/icon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./styles/index.css" />
   </head>
   <body>
     <center>
       <h1>Task Manager</h1>
       <div class="export-upload-section">
-        <button class="export-data">Export Data</button>
+        <button class="export-data" id="export-data">Export Data</button>
         <button class="export-data" id="add-task">Add Task</button>
       </div>
       <div class="filter-buttons-container">
-        <button class="filter-buttons active">All Tasks</button>
-        <button class="filter-buttons">Undone Tasks</button>
-        <button class="filter-buttons">Done Tasks</button>
+        <button class="filter-buttons" id="all-tasks" onclick="">
+          All Tasks
+        </button>
+        <button class="filter-buttons" id="unchecked-tasks">
+          Undone Tasks
+        </button>
+        <button class="filter-buttons" id="checked-tasks">Done Tasks</button>
       </div>
-      <div class="tasks-container">
-      </div>
+      <div class="tasks-container"></div>
     </center>
 
     <div class="modal" id="task-modal">
       <div class="modal-content">
         <h2>Add New Task</h2>
         <form id="task-form">
-          <input type="text" placeholder="Task Title" id="task-title" required />
-          <textarea placeholder="Task Description" id="task-desc" required></textarea>
+          <input
+            type="text"
+            placeholder="Task Title"
+            id="task-title"
+            required
+          />
+          <textarea
+            placeholder="Task Description"
+            id="task-desc"
+            required
+          ></textarea>
           <button type="submit">Add Task</button>
           <button type="button" class="close" id="close-modal">Cancel</button>
         </form>
       </div>
     </div>
-
-    <script src="./scripts/main.js"></script>
   </body>
+  <script src="./scripts/main.js" defer></script>
 </html>

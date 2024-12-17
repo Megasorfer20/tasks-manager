@@ -1,29 +1,34 @@
-import json
-import os
+from sqlalchemy.orm import Session
+from database.creation_database import SessionLocal
+from models.tasks_model import Task
 
-from read_json import get_all_data
-
-print(os.getcwd())
-
-def delete_task(task_id, file_path='./database/task.json'):
+def toggle_task_checked(task_id):
     try:
-        tasks = get_all_data(file_path)
-        updated_tasks = [task for task in tasks if task.get('task_id') != task_id]
+        session: Session = SessionLocal()
 
-        with open(file_path, 'w', encoding='utf-8') as task_document:
-            json.dump(updated_tasks, task_document, indent=4, ensure_ascii=False)
+        # Buscar la tarea por ID
+        task = session.query(Task).filter(Task.id_task == task_id).first()
 
-        print(f"Task with ID {task_id} has been deleted.")
-        return updated_tasks
-    except FileNotFoundError:
-        print(f"Error: File '{file_path}' not found.")
-        return []
-    except json.JSONDecodeError as e:
-        print(f"Error decoding JSON: {e}")
-        return []
+        if not task:
+            print(f"No task found with ID {task_id}.")
+            session.close()
+            return None
+
+        # Cambiar el estado de 'checked'
+        task.checked = not task.checked
+        session.commit()
+
+        print(f"Task ID {task_id} updated: 'checked' is now {task.checked}.")
+        session.close()
+        return task
     except Exception as e:
-        print(f"Unexpected error: {e}")
-        return []
+        print(f"Error toggling task 'checked' state: {e}")
+        return None
 
 if __name__ == "__main__":
-    print(delete_task(0))
+    task_id = 1  
+    updated_task = toggle_task_checked(task_id)
+    if updated_task:
+        print(f"Updated Task: ID={updated_task.id_task}, Checked={updated_task.checked}")
+    else:
+        print("Failed to update the task.")
