@@ -21,3 +21,4 @@ tasks_export.json
 **/init
 /init
 **/init/**
+sonar-project.properties
