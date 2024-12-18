@@ -43,7 +43,9 @@ async function loadTasks() {
             </div>
             <div class="buttons-task">
               <button onclick="deleteTask(${task.id})">Delete</button>
-              <button onclick="toggleTask(${task.id})">${task.checked ? "Mark as Undone" : "Mark as Done"}</button>
+              <button onclick="toggleTask(${task.id})">${
+        task.checked ? "Mark as Undone" : "Mark as Done"
+      }</button>
             </div>
           `;
       tasksContainer.appendChild(card);
@@ -76,7 +78,9 @@ async function loadUncheckedTasks() {
           </div>
           <div class="buttons-task">
             <button onclick="deleteTask(${task.id})">Delete</button>
-            <button onclick="toggleTask(${task.id})">${task.checked ? "Mark as Undone" : "Mark as Done"}</button>
+            <button onclick="toggleTask(${task.id})">${
+        task.checked ? "Mark as Undone" : "Mark as Done"
+      }</button>
           </div>
         `;
       tasksContainer.appendChild(card);
@@ -109,7 +113,9 @@ async function loadCheckedTasks() {
           </div>
           <div class="buttons-task">
             <button onclick="deleteTask(${task.id})">Delete</button>
-            <button onclick="toggleTask(${task.id})">${task.checked ? "Mark as Undone" : "Mark as Done"}</button>
+            <button onclick="toggleTask(${task.id})">${
+        task.checked ? "Mark as Undone" : "Mark as Done"
+      }</button>
           </div>
         `;
       tasksContainer.appendChild(card);
@@ -187,3 +193,45 @@ async function deleteTask(taskId) {
     console.error("Error deleting task:", error);
   }
 }
+
+async function exportTasks() {
+  try {
+    const response = await window.pywebview.api.export_tasks_to_json();
+
+    if (response.status === "success") {
+      const filename = response.filename;
+
+      // Realiza una solicitud para obtener el archivo
+      const fileResponse = await fetch(`http://localhost:8000/${filename}`);
+
+      if (!fileResponse.ok) {
+        throw new Error(`HTTP error! Status: ${fileResponse.status}`);
+      }
+
+      const blob = await fileResponse.blob();
+      const url = URL.createObjectURL(blob);
+
+      // Crear un enlace temporal y forzar la descarga
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+
+      document.body.appendChild(link);
+      link.click(); // Simular el clic para descargar
+      document.body.removeChild(link); // Limpiar el enlace temporal
+
+      console.log("Archivo descargado exitosamente");
+      alert(
+        `El archivo fue exportado exitosamente en la dirección ${response.path}`
+      );
+    } else {
+      alert("Error: " + response.message);
+    }
+  } catch (error) {
+    console.error("Error exporting tasks:", error);
+    alert("Error al exportar las tareas: " + error.message);
+  }
+}
+
+// Asociar la función exportTasks al botón de exportación
+document.getElementById("export-button").addEventListener("click", exportTasks);
