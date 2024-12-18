@@ -147,3 +147,19 @@ TaskManager/
 - **Dependencias:** Todas las dependencias necesarias se encuentran listadas en el archivo `requirements.txt`.
 - **Entorno virtual:** El uso del entorno virtual garantiza que las dependencias no interfieran con otras aplicaciones o proyectos en tu sistema.
 
+---
+
+## Sonarqube Scanner
+
+Aquí se pueden visualizar los resultados del análisis
+
+![image](https://github.com/user-attachments/assets/67ddf20d-0d58-4b88-981b-37973c6a426e)
+
+![image](https://github.com/user-attachments/assets/5cad853e-8444-4489-be9b-dd39f2befbe3)
+
+![image](https://github.com/user-attachments/assets/c25a3f87-295f-4261-9722-8a6b6b2908a9)
+
+
+
+
+
